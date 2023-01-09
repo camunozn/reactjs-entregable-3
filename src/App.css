@@ -1,3 +1,8 @@
+:root {
+  --color-primary: #05292e;
+  --color-secondary: #062226;
+}
+
 * {
   padding: 0;
   margin: 0;
@@ -10,24 +15,42 @@ html {
 
 body {
   font-family: sans-serif;
+  background-color: var(--color-primary);
 }
 
 img {
   width: 100%;
 }
 
-/***************/
-/* HEADER      */
-/***************/
+/*************************/
+/* GENERAL COMPONENTS */
+/*************************/
+
+.container {
+  max-width: 110rem;
+  padding: 0 2.4rem;
+  margin: 0 auto;
+}
+
+/*************************/
+/* HEADER */
+/*************************/
 
 .header {
   position: relative;
 }
 
 .header-title {
-  width: 50%;
+  width: 30%;
   position: absolute;
   top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.search-box {
+  position: absolute;
+  top: 85%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
