@@ -55,7 +55,11 @@ function App() {
             type="number"
             placeholder="Type a location ID"
             value={locationId}
-            onChange={e => setLocationId(e.target.value)}
+            onChange={e => {
+              e.target.value > 0
+                ? setLocationId(e.target.value)
+                : setLocationId('');
+            }}
           />
           <button className="btn btn--search" onClick={searchLocation}>
             <i className="fa-solid fa-magnifying-glass"></i>
