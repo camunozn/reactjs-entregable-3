@@ -10,11 +10,11 @@ const LocationInfo = ({ location }) => {
         </div>
         <div className="location-info-box location-info--type">
           <h3 className="heading-tertiary">Type</h3>
-          <p>{location?.type}</p>
+          <p>{location?.type === '' ? 'N/A' : location?.type}</p>
         </div>
         <div className="location-info-box location-info--dimension">
           <h3 className="heading-tertiary">Dimension</h3>
-          <p>{location?.dimension === '' ? 'N/A' : location?.dimension}</p>
+          <p>{location?.dimension}</p>
         </div>
         <div className="location-info-box location-info--population">
           <h3 className="heading-tertiary">Population</h3>

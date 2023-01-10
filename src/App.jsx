@@ -35,14 +35,15 @@ function App() {
       .then(res => setLocation(res.data));
   };
 
+  const headerBackground = {
+    backgroundImage: `url(${headerImg})`,
+    backgroundSize: 'cover',
+    backgroundPosition: 'top',
+  };
+
   return (
     <div className="App">
-      <header className="header">
-        <img
-          className="header-img"
-          src={headerImg}
-          alt="Rick and Morty header image"
-        />
+      <header className="header" style={headerBackground}>
         <img
           className="header-title"
           src={headerTitle}
@@ -51,7 +52,7 @@ function App() {
         <div className="search-box">
           <input
             className="input-search"
-            type="text"
+            type="number"
             placeholder="Type a location ID"
             value={locationId}
             onChange={e => setLocationId(e.target.value)}

@@ -133,11 +133,11 @@ img {
   background-color: var(--color-tertiary);
   color: var(--color-secondary);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  transform: translateY(-1px);
+  transform: translateY(-2px);
 }
 
 .btn:active {
-  transform: translateY(1px);
+  transform: translateY(2px);
 }
 
 /*************************/
@@ -145,6 +145,7 @@ img {
 /*************************/
 
 .header {
+  height: 50vh;
   position: relative;
   margin-bottom: 4.8rem;
 }
@@ -161,22 +162,24 @@ img {
   position: absolute;
   top: 85%;
   left: 50%;
+  width: 50%;
   transform: translate(-50%, -50%);
   margin: 0 auto;
 }
 
 .input-search {
-  height: 3.2rem;
-  width: 45vw;
+  height: 4.8rem;
+  width: 90%;
   border-radius: 4px;
   border-style: none;
   padding: 1rem;
   margin-right: 2px;
+  margin-bottom: 2rem;
 }
 
 .btn--search {
-  height: 3.2rem;
-  width: 3.2rem;
+  height: 4.8rem;
+  width: 4.8rem;
 }
 
 /*************************/
@@ -202,11 +205,10 @@ img {
 /*************************/
 
 .location-info {
-  height: 10rem;
+  height: 100%;
   background-color: var(--color-secondary);
   box-shadow: 0 1.2rem 1.2rem rgba(0, 0, 0, 0.1);
   padding: 2.4rem;
-  margin-bottom: 4.8rem;
 }
 
 .location-info-box {
@@ -234,11 +236,11 @@ img {
   left: 0;
   font-size: 1.6rem;
   font-weight: 600;
-  height: 2.8rem;
-  width: 40%;
+  height: 3.2rem;
+  width: 35%;
   background-color: var(--color-secondary);
   border-radius: 0 1rem 1rem 0;
-  padding: 0.6rem 0;
+  padding: 0.8rem 0;
 }
 
 .resident-info-cover .status-color {
@@ -247,7 +249,7 @@ img {
   width: 1.4rem;
   height: 1.4rem;
   border-radius: 50%;
-  margin: 0 6px;
+  margin: 0 1.5rem 0 1rem;
 }
 
 .resident-info-data {
@@ -277,4 +279,133 @@ img {
   font-size: 2.4rem;
   font-weight: 600;
   letter-spacing: 0.75px;
+}
+
+/*************************/
+/* QUERIES */
+/*************************/
+
+/**************************/
+/* BELOW 1360px (Smaller desktops) */
+/**************************/
+@media (max-width: 85em) {
+  .container {
+    max-width: 100rem;
+  }
+}
+
+/**************************/
+/* BELOW 1200px (Landscape Tablets) */
+/**************************/
+@media (max-width: 75em) {
+  html {
+    /* 9px / 16px  */
+    font-size: 56.25%;
+  }
+}
+
+/**************************/
+/* BELOW 992px (Portrait Tablets) */
+/**************************/
+
+@media (max-width: 62em) {
+  html {
+    /* 8px / 16px */
+    font-size: 50%;
+  }
+
+  .container {
+    max-width: 95rem;
+    padding: 0 8rem;
+  }
+
+  .header-title {
+    width: 40%;
+  }
+
+  .section-residents .grid {
+    column-gap: 9.6rem;
+  }
+}
+
+/**************************/
+/* BELOW 816px (Portrait Tablets) */
+/**************************/
+
+@media (max-width: 51em) {
+  .container {
+    max-width: 90rem;
+  }
+
+  .header {
+    height: 40vh;
+  }
+
+  .input-search {
+    height: 3.2rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .btn--search {
+    height: 3.2rem;
+    width: 3.2rem;
+  }
+
+  .section-residents .grid {
+    column-gap: 8rem;
+  }
+}
+
+/**************************/
+/* BELOW 640px (Phones) */
+/**************************/
+
+@media (max-width: 40em) {
+  .App {
+    min-width: 40rem;
+  }
+
+  .container {
+    max-width: 70rem;
+    padding: 0 4.8rem;
+  }
+
+  .heading-tertiary {
+    margin-bottom: 1.2rem;
+  }
+
+  .header {
+    height: 30vh;
+  }
+
+  .header-title {
+    top: 40%;
+    width: 50%;
+  }
+
+  .input-search {
+    font-size: 1.2rem;
+    width: 80%;
+    margin-bottom: 3.2rem;
+  }
+
+  .btn--search {
+    font-size: 1.2rem;
+  }
+
+  .section-location {
+    margin-bottom: 8rem;
+  }
+
+  .section-location .grid {
+    row-gap: 3.2rem;
+  }
+
+  .grid--2-cols {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  .grid--4-cols {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
