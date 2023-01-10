@@ -194,6 +194,7 @@ img {
   justify-content: space-around;
   column-gap: 12.8rem;
   row-gap: 9.6rem;
+  margin-bottom: 9.6rem;
 }
 
 /*************************/
