@@ -8,36 +8,62 @@ import Pagination from './assets/components/Pagination';
 import './App.css';
 
 function App() {
-  const [locationCount, setLocationCount] = useState(0);
+  //////////////////////////////////////////////////////////////
+  // States Declarations
   const [location, setLocation] = useState({});
-  const [locationId, setLocationId] = useState('');
+  const [locationCount, setLocationCount] = useState(0);
+  const [searchedLocation, setSearchedLocation] = useState('');
+  const [searchSuggestions, setSearchSuggestions] = useState([]);
+  const [currPage, setCurrPage] = useState(1);
+  const [isHidden, setIsHidden] = useState(true);
 
-  const generateRandom = function (limit) {
-    return Math.floor(Math.random() * limit);
-  };
-
+  //////////////////////////////////////////////////////////////
+  // Display random initial location
+  // Get total number of locations
   useEffect(() => {
     axios
       .get('https://rickandmortyapi.com/api/location')
       .then(res => setLocationCount(res.data.info.count));
   }, []);
 
+  // Calculate random ID
+  const generateRandom = function (limit) {
+    return Math.floor(Math.random() * limit);
+  };
+  // Set random location
   useEffect(() => {
     const initLocation = generateRandom(locationCount);
-
     axios
       .get(`https://rickandmortyapi.com/api/location/${initLocation}`)
       .then(res => setLocation(res.data));
   }, [locationCount]);
 
-  const searchLocation = function () {
-    axios
-      .get(`https://rickandmortyapi.com/api/location/${locationId}`)
-      .then(res => setLocation(res.data));
-    setCurrPage(1);
+  //////////////////////////////////////////////////////////////
+  // Search functionality
+  // Get location suggestions from searched value
+  useEffect(() => {
+    if (searchedLocation) {
+      axios
+        .get(
+          `https://rickandmortyapi.com/api/location?name=${searchedLocation}`
+        )
+        .then(res => setSearchSuggestions(res.data.results));
+      setIsHidden(false);
+    } else {
+      setSearchSuggestions([]);
+      setIsHidden(true);
+    }
+  }, [searchedLocation]);
+
+  // Set selected location on click
+  const selectLocation = suggestion => {
+    setLocation(suggestion);
+    setSearchedLocation('');
+    setIsHidden(true);
   };
 
-  const [currPage, setCurrPage] = useState(1);
+  //////////////////////////////////////////////////////////////
+  // Pagination functionality
   const resultsPerPage = 10; //Magic number, should be in a config file
   const lastResultIndex = currPage * resultsPerPage;
   const firstResultIndex = lastResultIndex - resultsPerPage;
@@ -46,25 +72,23 @@ function App() {
     lastResultIndex
   );
   const totalPages = Math.ceil(location.residents?.length / resultsPerPage);
-
   const pagesArr = [];
+  // Filling array with numbers of pages
   for (let i = 1; i <= totalPages; i++) {
     pagesArr.push(i);
   }
-
+  // Function to change page when clicking on buttons
   const changePage = page => {
     setCurrPage(page);
   };
-
-  const headerBackground = {
-    backgroundImage: `url(${headerImg})`,
-    backgroundSize: 'cover',
-    backgroundPosition: 'top',
-  };
+  // Reset current page number after a location change
+  useEffect(() => {
+    setCurrPage(1);
+  }, [location]);
 
   return (
     <div className="App">
-      <header className="header" style={headerBackground}>
+      <header className="header">
         <img
           className="header-title"
           src={headerTitle}
@@ -73,18 +97,23 @@ function App() {
         <div className="search-box">
           <input
             className="input-search"
-            type="number"
-            placeholder="Type a location ID"
-            value={locationId}
+            type="text"
+            placeholder="Type a location name"
+            value={searchedLocation}
             onChange={e => {
-              e.target.value > 0
-                ? setLocationId(e.target.value)
-                : setLocationId('');
+              setSearchedLocation(e.target.value);
             }}
           />
-          <button className="btn btn--search" onClick={searchLocation}>
-            <i className="fa-solid fa-magnifying-glass"></i>
-          </button>
+          <ul className={`search-suggestions ${isHidden ? 'hidden' : ''}`}>
+            {searchSuggestions.map(suggestion => (
+              <li
+                key={suggestion.id}
+                onClick={() => selectLocation(suggestion)}
+              >
+                {suggestion.name}
+              </li>
+            ))}
+          </ul>
         </div>
       </header>
       <main>
