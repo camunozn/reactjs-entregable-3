@@ -4,6 +4,7 @@ import LocationInfo from './assets/components/LocationInfo';
 import ResidentInfo from './assets/components/ResidentInfo';
 import headerImg from './assets/img/header-img.png';
 import headerTitle from './assets/img/header-title.png';
+import Pagination from './assets/components/Pagination';
 import './App.css';
 
 function App() {
@@ -33,6 +34,26 @@ function App() {
     axios
       .get(`https://rickandmortyapi.com/api/location/${locationId}`)
       .then(res => setLocation(res.data));
+    setCurrPage(1);
+  };
+
+  const [currPage, setCurrPage] = useState(1);
+  const resultsPerPage = 10; //Magic number, should be in a config file
+  const lastResultIndex = currPage * resultsPerPage;
+  const firstResultIndex = lastResultIndex - resultsPerPage;
+  const resultsCurrPage = location.residents?.slice(
+    firstResultIndex,
+    lastResultIndex
+  );
+  const totalPages = Math.ceil(location.residents?.length / resultsPerPage);
+
+  const pagesArr = [];
+  for (let i = 1; i <= totalPages; i++) {
+    pagesArr.push(i);
+  }
+
+  const changePage = page => {
+    setCurrPage(page);
   };
 
   const headerBackground = {
@@ -73,8 +94,16 @@ function App() {
           </div>
         </section>
         <section className="section-residents">
-          <div className="container grid grid--2-cols">
-            {location.residents?.map(resident => (
+          <div className="container container--pagination flex">
+            <Pagination
+              pagesArr={pagesArr}
+              currPage={currPage}
+              totalPages={totalPages}
+              changePage={changePage}
+            />
+          </div>
+          <div className="container container--residents grid grid--2-cols">
+            {resultsCurrPage?.map(resident => (
               <ResidentInfo key={resident} residentUrl={resident} />
             ))}
           </div>

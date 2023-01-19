@@ -87,6 +87,12 @@ img {
   margin: 0 auto;
 }
 
+.flex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .grid {
   display: grid;
   align-items: stretch;
@@ -189,18 +195,21 @@ img {
 /* LOCATION SECTION */
 /*************************/
 .section-location {
-  margin-bottom: 9.6rem;
+  margin-bottom: 6.4rem;
 }
 
 /*************************/
 /* RESIDENT SECTION */
 /*************************/
+.section-residents {
+  margin-bottom: 9.6rem;
+}
 
-.section-residents .grid {
+.container--residents.grid {
   justify-content: space-around;
   column-gap: 12.8rem;
   row-gap: 9.6rem;
-  margin-bottom: 9.6rem;
+  margin-top: 8rem;
 }
 
 /*************************/
@@ -285,9 +294,42 @@ img {
 }
 
 /*************************/
+/* PAGINATION COMPONENT */
+/*************************/
+.pagination.flex,
+.pagination-pages.flex {
+  gap: 1rem;
+}
+
+.pagination-pages li {
+  list-style: none;
+}
+
+.btn--pagination {
+  min-width: 4rem;
+  min-height: 4rem;
+  background-color: var(--color-secondary);
+  padding: 1rem;
+}
+
+.btn--pagination--selected {
+  color: var(--color-secondary);
+  background-color: var(--color-tertiary);
+}
+
+.btn--pagination:disabled,
+.btn--pagination:disabled:hover {
+  color: var(--color-text-secondary);
+}
+.btn--pagination:disabled:hover {
+  background-color: var(--color-secondary);
+  box-shadow: none;
+  transform: translateY(0);
+}
+
+/*************************/
 /* QUERIES */
 /*************************/
-
 /**************************/
 /* BELOW 1360px (Smaller desktops) */
 /**************************/
